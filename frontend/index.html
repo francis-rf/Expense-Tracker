@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Manager - Smart Finance Tracking</title>
+    <meta
+      name="description"
+      content="Modern expense tracking and analytics platform for smart financial management"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+      <!-- Header -->
+      <header class="app-header">
+        <div class="header-content">
+          <div class="logo-section">
+            <div class="logo-icon">💰</div>
+            <div>
+              <h1 class="app-title">Expense Manager</h1>
+              <p class="app-subtitle">Smart Finance Tracking</p>
+            </div>
+          </div>
+          <div class="header-stats">
+            <div class="stat-card">
+              <span class="stat-label">Total Expenses</span>
+              <span class="stat-value" id="totalExpenses">₹0</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">This Month</span>
+              <span class="stat-value" id="monthExpenses">₹0</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Tab Navigation -->
+      <nav class="tab-navigation">
+        <button class="tab-button active" data-tab="expenses">
+          <span class="tab-icon">📝</span>
+          <span class="tab-text">Manage Expenses</span>
+        </button>
+        <button class="tab-button" data-tab="analytics">
+          <span class="tab-icon">📊</span>
+          <span class="tab-text">Analytics & Insights</span>
+        </button>
+        <div class="tab-indicator"></div>
+      </nav>
+
+      <!-- Tab Content -->
+      <main class="tab-content-wrapper">
+        <!-- Expenses Tab -->
+        <section id="expenses-tab" class="tab-content active">
+          <div class="content-grid">
+            <!-- Add Expense Form -->
+            <div class="glass-card form-card">
+              <div class="card-header">
+                <h2 class="card-title">Add New Expense</h2>
+                <p class="card-subtitle">Track your spending effortlessly</p>
+              </div>
+              <form id="expenseForm" class="expense-form">
+                <div class="form-group">
+                  <label for="expenseDate" class="form-label">Date</label>
+                  <input
+                    type="date"
+                    id="expenseDate"
+                    class="form-input"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="expenseCategory" class="form-label"
+                    >Category</label
+                  >
+                  <select id="expenseCategory" class="form-input" required>
+                    <option value="">Select a category</option>
+                    <option value="Food">🍔 Food & Dining</option>
+                    <option value="Transport">🚗 Transport</option>
+                    <option value="Entertainment">🎬 Entertainment</option>
+                    <option value="Shopping">🛍️ Shopping</option>
+                    <option value="Bills">💡 Bills & Utilities</option>
+                    <option value="Healthcare">⚕️ Healthcare</option>
+                    <option value="Education">📚 Education</option>
+                    <option value="Other">📦 Other</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="expenseNotes" class="form-label">Notes</label>
+                  <input
+                    type="text"
+                    id="expenseNotes"
+                    class="form-input"
+                    placeholder="e.g., Lunch at restaurant"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="expenseAmount" class="form-label"
+                    >Amount (₹)</label
+                  >
+                  <input
+                    type="number"
+                    id="expenseAmount"
+                    class="form-input"
+                    placeholder="0.00"
+                    step="0.01"
+                    min="0.01"
+                    required
+                  />
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                  <span class="btn-icon">➕</span>
+                  <span>Add Expense</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- Expense List -->
+            <div class="glass-card list-card">
+              <div class="card-header">
+                <h2 class="card-title">Recent Expenses</h2>
+                <div class="filter-group">
+                  <input type="date" id="filterDate" class="filter-input" />
+                  <button id="filterBtn" class="btn btn-secondary">
+                    Filter
+                  </button>
+                  <button id="clearFilterBtn" class="btn btn-ghost">
+                    Clear
+                  </button>
+                </div>
+              </div>
+              <div class="expense-list" id="expenseList">
+                <div class="empty-state">
+                  <div class="empty-icon">📭</div>
+                  <p class="empty-text">No expenses yet</p>
+                  <p class="empty-subtext">
+                    Add your first expense to get started
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Analytics Tab -->
+        <section id="analytics-tab" class="tab-content">
+          <div class="analytics-grid">
+            <!-- Date Range Selector -->
+            <div class="glass-card range-card">
+              <div class="card-header">
+                <h2 class="card-title">Analytics Period</h2>
+                <p class="card-subtitle">Select date range for insights</p>
+              </div>
+              <div class="date-range-form">
+                <div class="form-group">
+                  <label for="startDate" class="form-label">Start Date</label>
+                  <input type="date" id="startDate" class="form-input" />
+                </div>
+                <div class="form-group">
+                  <label for="endDate" class="form-label">End Date</label>
+                  <input type="date" id="endDate" class="form-input" />
+                </div>
+                <button id="analyzBtn" class="btn btn-primary">
+                  <span class="btn-icon">🔍</span>
+                  <span>Analyze</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Category Breakdown -->
+            <div class="glass-card breakdown-card">
+              <div class="card-header">
+                <h2 class="card-title">Category Breakdown</h2>
+                <p class="card-subtitle">See where your money goes</p>
+              </div>
+              <div id="categoryBreakdown" class="category-breakdown">
+                <div class="empty-state">
+                  <div class="empty-icon">📊</div>
+                  <p class="empty-text">No data available</p>
+                  <p class="empty-subtext">
+                    Select a date range to view analytics
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Insights Cards -->
+            <div class="insights-grid">
+              <div class="glass-card insight-card">
+                <div class="insight-icon">💸</div>
+                <div class="insight-content">
+                  <p class="insight-label">Total Spent</p>
+                  <p class="insight-value" id="totalSpent">₹0</p>
+                </div>
+              </div>
+              <div class="glass-card insight-card">
+                <div class="insight-icon">📈</div>
+                <div class="insight-content">
+                  <p class="insight-label">Top Category</p>
+                  <p class="insight-value" id="topCategory">-</p>
+                </div>
+              </div>
+              <div class="glass-card insight-card">
+                <div class="insight-icon">📅</div>
+                <div class="insight-content">
+                  <p class="insight-label">Daily Average</p>
+                  <p class="insight-value" id="dailyAverage">₹0</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
